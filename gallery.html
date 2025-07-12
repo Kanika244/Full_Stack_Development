@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery - Travel Site</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+
+  <!-- Navbar -->
+  <header class="bg-white shadow-md fixed w-full z-50">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <!-- Logo -->
+        <div class="flex-shrink-0 flex items-center">
+          <span class="text-2xl font-bold text-indigo-600">TravelAround</span>
+
+        </div>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex space-x-8">
+          <a href="index.html" class="flex items-center text-gray-700 font-medium hover:text-indigo-600">
+            <i class="fas fa-home mr-1"></i> Home
+          </a>
+          <a href="places.html" class="flex items-center text-gray-700 font-medium hover:text-indigo-600">
+            <i class="fas fa-map-marker-alt mr-1"></i> Places
+          </a>
+          <a href="gallery.html" class="flex items-center text-indigo-600 font-semibold">
+            <i class="fas fa-image mr-1"></i> Gallery
+          </a>
+          <a href="contact.html" class="flex items-center text-gray-700 font-medium hover:text-indigo-600">
+            <i class="fas fa-envelope mr-1"></i> Contact
+          </a>
+        </div>
+
+        <!-- Hamburger Button -->
+        <div class="flex items-center">
+          <button id="menu-toggle" class="text-gray-700 hover:text-indigo-600 focus:outline-none">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden px-4 pb-4 space-y-2 bg-white md:hidden">
+      <a href="index.html" class="block text-gray-700 font-medium hover:text-indigo-600">
+        <i class="fas fa-home mr-1"></i> Home
+      </a>
+      <a href="places.html" class="block text-gray-700 font-medium hover:text-indigo-600">
+        <i class="fas fa-map-marker-alt mr-1"></i> Places
+      </a>
+      <a href="gallery.html" class="block text-indigo-600 font-semibold">
+        <i class="fas fa-image mr-1"></i> Gallery
+      </a>
+      <a href="contact.html" class="block text-gray-700 font-medium hover:text-indigo-600">
+        <i class="fas fa-envelope mr-1"></i> Contact
+      </a>
+    </div>
+  </header>
+
+  <
+  <div class="pt-20"></div>
+
+<section class="max-w-6xl mx-auto px-4 py-16">
+  <h2 class="text-2xl font-bold mb-6 text-center">Explore Countries</h2>
+  <div id="flag-gallery" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6"></div>
+</section>
+
+
+  <!-- JavaScript -->
+  <script>
+   
+    const toggleBtn = document.getElementById("menu-toggle");
+    const menu = document.getElementById("mobile-menu");
+    toggleBtn.addEventListener("click", () => {
+      menu.classList.toggle("hidden");
+    });
+
+    // Fetch and display images
+  
+  fetch("https://restcountries.com/v3.1/all?fields=name,flags")
+    .then(response => response.json())
+    .then(data => {
+      const gallery = document.getElementById("flag-gallery");
+
+      data.forEach(country => {
+        const card = document.createElement("div");
+        card.className = "bg-white rounded-lg shadow p-4 flex flex-col items-center hover:shadow-md transition";
+
+        const img = document.createElement("img");
+        img.src = country.flags.png;
+        img.alt = `${country.name.common} flag`;
+        img.className = "w-20 h-14 object-contain mb-2";
+
+        const name = document.createElement("p");
+        name.textContent = country.name.common;
+        name.className = "text-sm font-medium text-center";
+
+        card.appendChild(img);
+        card.appendChild(name);
+        gallery.appendChild(card);
+      });
+    })
+    .catch(error => {
+      console.error("Error fetching flags:", error);
+    });
+</script>
+
+
+      
+
+
+</body>
+</html>
